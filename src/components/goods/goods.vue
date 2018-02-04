@@ -14,7 +14,7 @@
           <li class="food-list food-list-hook" v-for="good in goods">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item border-1px" v-for="food in good.foods">
+              <li class="food-item border-1px" v-for="food in good.foods" @click="clickFood(food,$event)">
                 <div class="icon">
                   <img width='57' height='57' :src="food.icon" alt="">
                 </div>
@@ -45,7 +45,7 @@
                 :update-food-count="updateFoodCount">
       </shopcart>
     </div>
-    <div class="food"></div>
+    <food :food="selectFood" :update-food-count="updateFoodCount" ref="food"></food>
   </div>
 </template>
 <script>
@@ -54,6 +54,7 @@
   import Vue from 'vue'
   import cartcontrol from '../cartcontrol/cartcontrol.vue'
   import shopcart from '../shopcart/shopcart.vue'
+  import food from '../food/food.vue'
   const OK = 0
   export default {
       props:['seller'],
@@ -61,7 +62,8 @@
           return {
             goods:[],
             tops:[],
-            scrollY:0
+            scrollY:0,
+            selectFood:{}
           }
       },
 
@@ -146,6 +148,15 @@
           this.foodList.forEach(food =>{
               food.count = 0
           })
+      },
+      clickFood (food,event) {
+         if (!event._constructed) {
+             return
+         }
+         //更新food
+         this.selectFood = food
+        //显示food组件
+         this.$refs.food.show(true)
       }
     },
     computed:{
@@ -170,7 +181,8 @@
     },
     components : {
       cartcontrol,
-      shopcart
+      shopcart,
+      food
     }
   }
 </script>

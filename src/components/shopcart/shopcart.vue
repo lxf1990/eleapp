@@ -13,7 +13,7 @@
              <div class="price">￥{{totalPrice}}</div>
              <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
            </div>
-           <div class="content-right">
+           <div class="content-right" @click="showTotalPrice">
              <div class="pay" :class="totalPrice<minPrice?'not-enough':'enough'">
                {{payText}}
              </div>
@@ -114,6 +114,15 @@
       methods : {
         toogleList () {
             this.isShow = !this.isShow
+        },
+        showTotalPrice () {
+            var resultPrice = this.totalPrice + 4
+          if (this.totalPrice===0) {
+                alert("请选择食物后，再进行支付")
+          }else{
+            alert("请支付"+resultPrice+"元")
+          }
+
         }
       },
       components:{
