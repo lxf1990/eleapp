@@ -38,14 +38,15 @@
                         :ratings="food.ratings"
                         :select-type="selectType"
           @setSelectType="setSelectType"
-          @switchOnlyContent="switchOnlyContent">
+          @switchOnlyContent="switchOnlyContent"
+          v-if="food.ratings">
           </ratingselect>
 
 
 
           <div class="rating-wrapper">
             <ul>
-              <li class="rating-item border-1px" v-for="rating in food.filterRatings">
+              <li class="rating-item border-1px" v-for="rating in filterRatings">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
                   <img width="12" height="12" class="avatar" :src="rating.avatar" >
