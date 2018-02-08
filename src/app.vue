@@ -12,7 +12,9 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -37,15 +39,17 @@
               }
           })
         // /使用axios发送ajax请求mockjs提供的接口
-        axios.get('/api2/seller')
-          .then(response => {
-            const result = response.data
-            if (result.code === OK) {
-              this.seller = result.data
-              this.seller.score = 3.6
-              console.log('axios',this.seller);
-            }
-          })
+        setTimeout(() => {
+          axios.get('/api2/seller')
+            .then(response => {
+              const result = response.data
+              if (result.code === OK) {
+                this.seller = result.data
+                this.seller.score = 3.6
+                console.log('axios',this.seller);
+              }
+            })
+        },1000)
       },
 
     components : {
